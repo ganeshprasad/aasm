@@ -38,7 +38,7 @@ module AASM
         base.send(:include, AASM::Persistence::ActiveRecordPersistence::WriteState) unless base.method_defined?(:aasm_write_state)
         base.send(:include, AASM::Persistence::ActiveRecordPersistence::WriteStateWithoutPersistence) unless base.method_defined?(:aasm_write_state_without_persistence)
 
-        if base.respond_to?(:named_scope)
+        if base.respond_to?(:named_scope) && !base.respond_to?(:aasm_state_without_named_scope)
           base.extend(AASM::Persistence::ActiveRecordPersistence::NamedScopeMethods)
 
           base.class_eval do
